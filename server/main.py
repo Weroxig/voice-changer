@@ -47,20 +47,20 @@ def setupArgParser():
 
 def check_port(port) -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-        sock.bind(("127.0.0.1", port))
+        sock.bind(("192.168.193.163", port))
 
 def wait_for_server(proto: str, launch_browser: bool):
     while True:
         time.sleep(1)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            result = sock.connect_ex(('127.0.0.1', settings.port))
+            result = sock.connect_ex(('192.168.193.163', settings.port))
         if result == 0:
             break
     logger.info('-' * 8)
     logger.info(f"The server is listening on {proto}://{settings.host}:{settings.port}/")
     logger.info('-' * 8)
     if launch_browser:
-        open_new_tab(f'{proto}://127.0.0.1:{settings.port}')
+        open_new_tab(f'{proto}://192.168.193.163:{settings.port}')
 
 async def runServer(host: str, port: int, launch_browser: bool = False, log_level: str = 'error', key_path: str | None = None, cert_path: str | None = None):
     check_port(port)
